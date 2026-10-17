@@ -93,6 +93,10 @@ footer{padding:clamp(80px,12vw,160px) 4vw 30px;text-align:center;border-top:1px 
 .bar{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin:100px auto 0;max-width:1300px;padding-top:20px;border-top:1px solid var(--line);font:500 11px var(--mono);letter-spacing:.1em;color:var(--mut)}
 [data-r]{opacity:0;transform:translateY(28px);transition:opacity .8s,transform .8s}
 [data-r].in{opacity:1;transform:none}
+@keyframes pf{to{opacity:0;visibility:hidden}}
+@keyframes rv{to{opacity:1;transform:none}}
+html:not(.ok) .pre{animation:pf .4s 5s forwards}
+html:not(.ok) [data-r]{animation:rv .6s 5s forwards}
 @media(max-width:800px){.ag,.log{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}nav .links{display:none}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -133,7 +137,7 @@ footer{padding:clamp(80px,12vw,160px) 4vw 30px;text-align:center;border-top:1px 
 <p class="stm" data-r>I'm Ayush &mdash; a <span class="hl" id="age">18</span>-year-old programmer and designer who turns 3 a.m. ideas into <span class="hl">working software</span>. This site is my private node on the Net: a work in progress I keep upgrading with new gigs, designs and experiments.</p>
 <div class="side" data-r>
 <p>Everything here is designed, built and shipped by me &mdash; no fixers, no corpos, no middlemen. Currently jacked into AI and systems engineering, one daemon at a time.</p>
-<p>Got a question, an idea, or just wanna say hi, choom? Find me on <a href="#">insta</a> <https://www.instagram.com/jai_singh.v7?cplk=ZDNlZDc0MzIxNw%3D%3D> or browse the code on <a href="https://github.com/AYUSHDEV077" target="_blank" rel="noopener">GitHub</a>.</p>
+<p>Got a question, an idea, or just wanna say hi, choom? Find me on <a href="https://www.instagram.com/jai_singh.v7" target="_blank" rel="noopener">Instagram</a> or browse the code on <a href="https://github.com/AYUSHDEV077" target="_blank" rel="noopener">GitHub</a>.</p>
 <div class="card">
 <div><span class="k">HANDLE :</span><span>AYUSH KUMAR</span></div>
 <div><span class="k">CLASS :</span><span>NETRUNNER &times; DESIGNER</span></div>
@@ -182,7 +186,7 @@ $ <span class="h">braindance</span> play --speed 4x
 <p class="lab" data-r>// OPEN CHANNEL</p>
 <h2 class="mega" data-r>Let's run<br><span class="thin">a gig.</span></h2>
 <div class="fc" data-r>
-<a class="btn solid" href="#">INSTA &nearr;</a> <https://www.instagram.com/jai_singh.v7?cplk=ZDNlZDc0MzIxNw%3D%3D>
+<a class="btn solid" href="https://www.instagram.com/jai_singh.v7" target="_blank" rel="noopener">INSTAGRAM &nearr;</a>
 <a class="btn" href="https://github.com/AYUSHDEV077" target="_blank" rel="noopener">GITHUB &nearr;</a>
 </div>
 <div class="bar"><span>&copy; <span id="yr">2026</span> AYUSH KUMAR</span><span>LAST SYNC: <span id="sync"></span></span><a href="#top">BACK TO TOP &uarr;</a></div>
@@ -191,10 +195,10 @@ $ <span class="h">braindance</span> play --speed 4x
 <script>
 (function(){
 "use strict";
-var BIRTH=new Date('2008-01-01T00:00:00'); /24/02/2008/
+var BIRTH=new Date('2008-02-24T00:00:00');
 var $=function(i){return document.getElementById(i)},RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
 
-function tick(){var n=new Date(),y=n.getFullYear(),lb=new Date(y,BIRTH.getMonth(),BIRTH.getDate());
+try{function tick(){var n=new Date(),y=n.getFullYear(),lb=new Date(y,BIRTH.getMonth(),BIRTH.getDate());
 if(lb>n){y--;lb=new Date(y,BIRTH.getMonth(),BIRTH.getDate())}
 var a=y-BIRTH.getFullYear(),d=n-lb,p=function(v){return v<10?'0'+v:v};
 $('tk').textContent=a+'y '+p(Math.floor(d/864e5))+'d '+p(Math.floor(d/36e5)%24)+'h '+p(Math.floor(d/6e4)%60)+'m '+p(Math.floor(d/1e3)%60)+'s';
@@ -208,20 +212,22 @@ for(var r=0;r<4;r++)W.forEach(function(w,i){h+='<span class="'+(i%2?'g':'')+'">'
 $('mq').innerHTML=h;
 
 addEventListener('scroll',function(){var e=document.documentElement;document.querySelector('.prog').style.width=(e.scrollTop/(e.scrollHeight-e.clientHeight)*100)+'%'},{passive:true});
+}catch(err){console.error(err)}
 
 var pre=$('pre'),els=document.querySelectorAll('[data-r]');
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
-function go(){pre.classList.add('done');setTimeout(function(){pre.remove()},800);
+function go(){if(pre.classList.contains('done'))return;document.documentElement.classList.add('ok');pre.classList.add('done');setTimeout(function(){pre.remove()},800);
 els.forEach(function(el,i){el.style.transitionDelay=(el.closest('.hin')?i*.12:0)+'s';io.observe(el)})}
-if(RM){pre.remove();els.forEach(function(e){e.classList.add('in')})}
+if(RM){document.documentElement.classList.add('ok');pre.remove();els.forEach(function(e){e.classList.add('in')})}
 else{
 ['&gt; jacking into the Net ........ ','&gt; bypassing ICE ............... ','&gt; loading cyberware.db ......... ','&gt; handshake w/ Night City ...... '].forEach(function(t,i){
 setTimeout(function(){$('boot').insertAdjacentHTML('beforeend','<div>'+t+'<span class="ok">OK</span></div>')},140+i*260)});
 var t0=null;requestAnimationFrame(function s(ts){t0=t0||ts;var t=Math.min((ts-t0)/1500,1);
 $('pc').textContent=Math.round((1-Math.pow(1-t,3))*100);
-if(t<1)requestAnimationFrame(s);else setTimeout(go,260)})}
+if(t<1)requestAnimationFrame(s);else setTimeout(go,260)});setTimeout(go,4500)}
 
 /* the Net: rotating particle sphere */
+try{
 var c=$('net'),x=c.getContext('2d'),N=innerWidth<720?700:1500,P=[],G=Math.PI*(3-Math.sqrt(5)),w,ht,vis=true,mx=0,my=0,a=0;
 for(var i=0;i<N;i++){var yy=1-i/(N-1)*2,rr=Math.sqrt(1-yy*yy),th=G*i;P.push([Math.cos(th)*rr,yy,Math.sin(th)*rr])}
 function rs(){var d=Math.min(devicePixelRatio||1,2);w=innerWidth;ht=innerHeight;c.width=w*d;c.height=ht*d;x.setTransform(d,0,0,d,0,0)}
@@ -236,6 +242,7 @@ var k=(Z+1)/2,wv=Math.sin(p[1]*6+t/700)*.5+.5,s=.6+k*1.8;
 x.fillStyle='rgba(0,240,255,'+(.12+k*.7*(.5+wv*.5)).toFixed(2)+')';
 x.fillRect(cx+X*R,cy+Y*R,s,s)}}
 (function f(t){if(!RM)requestAnimationFrame(f);if(vis&&!document.hidden){a+=.003;draw(t||0)}})(0);
+}catch(err){console.error(err)}
 })();
 </script>
 </body>
